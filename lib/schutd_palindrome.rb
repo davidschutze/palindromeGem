@@ -1,17 +1,25 @@
 require "schutd_palindrome/version"
 
-class String
+module SchutdPalindrome
   def palindrome?
-    processed_content == processed_content.reverse
+    if processed_content.empty?
+      false
+    else
+      processed_content == processed_content.reverse
+    end
   end
-
-def letters
-  self.chars.select { |c| c.match(/[a-z]/i) }.join
-end
 
   private
 
     def processed_content
-      self.scan(/[a-z]/i).join.downcase
+      self.to_s.scan(/[a-z\d]/i).join.downcase
     end
+end
+
+class String
+  include SchutdPalindrome
+end
+
+class Integer
+  include SchutdPalindrome
 end
